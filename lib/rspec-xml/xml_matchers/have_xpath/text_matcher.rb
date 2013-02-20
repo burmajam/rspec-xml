@@ -12,15 +12,18 @@ module RSpecXML
         end
 
         def matches?(xml)
-          ::Nokogiri::XML(xml).xpath(xpath).text == text
+          @xml = xml
+          doc = ::Nokogiri::XML(xml)
+          doc.remove_namespaces!
+          doc.xpath(xpath).text == text
         end
 
         def failure_message_for_should
-          "expected #{xpath} to contain #{text}"
+          "expected #{xpath} to contain #{text} in\n#{@xml}"
         end
 
         def failure_message_for_should_not
-          "expected #{xpath} to not exist with text: #{text}"
+          "expected #{xpath} to not exist with text: #{text} in\n#{@xml}"
         end
 
         private

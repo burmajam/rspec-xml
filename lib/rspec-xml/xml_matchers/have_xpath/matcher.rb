@@ -10,15 +10,18 @@ module RSpecXML
         end
 
         def matches?(xml)
-          ::Nokogiri::XML(xml).xpath(full_xpath).count > 0
+          @xml = xml
+          doc = ::Nokogiri::XML(xml)
+          doc.remove_namespaces!
+          doc.xpath(full_xpath).count > 0
         end
 
         def failure_message_for_should
-          "expected #{full_xpath} to exist" 
+          "expected #{full_xpath} to exist in\n#{@xml}"
         end
 
         def failure_message_for_should_not
-          "expected #{full_xpath} to not exist"
+          "expected #{full_xpath} to not exist in\n#{@xml}"
         end
 
         def full_xpath
