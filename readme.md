@@ -17,6 +17,7 @@ gem 'rspec-xml'
 "<something>else</something>".should_not have_xpath('/what')
 "<something>else</something>".should_not have_xpath('/something').with_text('what')
 ```
+Search without namespaces in xpath (they are removed in matcher for now)
 
 ### Builder
 
